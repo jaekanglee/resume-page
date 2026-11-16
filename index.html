@@ -7,76 +7,73 @@
 <li><a href="mailto:ksdy234@gmail.com" rel="noopener noreferrer">ksdy234@gmail.com</a></li>
 <li><a href="https://open.kakao.com/o/gH0XvThc" rel="noopener noreferrer">Android 개발자 오픈채팅</a></li>
 </ul>
-<h2>요약</h2>
-<p>배달 플랫폼의 라이더앱과 관제앱에서 소켓·푸시·REST가 같은 화면을 갱신할 때 생기는 불일치와 장애를 원인부터 찾아 고쳐 왔습니다.</p>
+<h2>핵심 경험</h2>
 <ul>
-<li><strong>실시간 데이터 정합:</strong> 주문 목록 불일치, 중복 이벤트, 재연결 뒤 누락을 로그와 코드로 좁혀 고침. Flutter 앱에서는 소켓 재연결과 주문 캐시 규칙을 재현 테스트로 확인</li>
-<li><strong>운영 중 구조 전환:</strong> 배포를 멈추지 않고 Java 단일 모듈 라이더앱을 3년에 걸쳐 Kotlin 멀티모듈로 옮김</li>
-<li><strong>돈과 보안이 걸린 경로:</strong> 중복 출금과 주문 선점 매크로를 QA·서버 개발자와 역할을 나눠 단계적으로 대응</li>
-<li><strong>검증하는 개발:</strong> 도메인 테스트를 배포·push 조건으로 두고, AI 코딩 에이전트가 만든 코드는 팀 공통 구조 검사기와 같은 테스트로 검증</li>
+<li><strong>중복 출금 재발 차단:</strong> 운영에서 세 번 재발한 출금 수수료 이중 차감을 동료 제안을 받아 자동 재시도 해제·동시 요청 1건 제한까지 단계적으로 막음. 2024.04 마지막 조치 이후 재발 없음</li>
+<li><strong>지도 화면 메모리 누수:</strong> 지도 화면을 오가면 나던 OOM·SDK 중복 생성 크래시를 Crashlytics로 확인하고, 힙 덤프로 종료 뒤에도 남던 Activity 참조를 해제 시점에 정리. QA와 단말별 메모리 회수를 확인</li>
+<li><strong>멈출 수 없는 앱의 구조 전환:</strong> 배포를 멈추지 않고 Java 단일 모듈 앱에 Kotlin 멀티모듈을 세워 3년간 점진 전환(Kotlin 0 → 약 6.7만 줄, Java 5.9만 → 3.9만 줄)하고 2025.07 모듈 통합</li>
+<li><strong>주문 선점 매크로 대응:</strong> 클라이언트 차단이 리패키징·후킹으로 뚫리자 서버 개발자와 나눠 Play Integrity 토큰을 서버가 검증하게 옮김(2023.08)</li>
 </ul>
 <h2>경력</h2>
 <h3>바로고 | 2022.05 ~ 현재</h3>
 <p>팀원 · Android Native / Flutter 메인 개발자</p>
-<p>콜 수 기준 배달대행 업계 1위 플랫폼의 라이더앱 담당. 과거 일 최대 70만 콜을 처리한 배차 플랫폼에서 Native 라이더앱(2022.05~2025.12)을 Crash-free Users 99.89%·ANR-free Sessions 99.97% 수준으로 운영했고, 2026년부터 Flutter 라이더앱과 신규 허브관제앱을 맡음.</p>
-<p>최대 4명 규모 모바일 팀에서 바로고 도메인을 오래 다뤄 온 동료와 Native·Flutter 앱을 함께 개발하며 아키텍처와 개발 방식은 주로 본인이 맡았고, 세 앱의 PR을 서로 리뷰(본인 리뷰 685건). 회사 채용 블로그 <a href="https://career.barogo.com/blog/?bmode=view&amp;idx=18003106" rel="noopener noreferrer">직무 인터뷰</a>에 소개됨.</p>
+<p>콜 수 기준 배달대행 업계 1위 플랫폼의 라이더앱 담당. 최대 4명 규모 모바일 팀에서 바로고 도메인을 오래 다뤄 온 동료와 Native·Flutter 앱을 함께 개발했고, 아키텍처와 개발 방식은 주로 본인이 맡음. 세 앱의 PR을 서로 리뷰(본인 리뷰 685건). 회사 채용 블로그 <a href="https://career.barogo.com/blog/?bmode=view&amp;idx=18003106" rel="noopener noreferrer">직무 인터뷰</a>에 소개됨.</p>
 <p><strong>기술:</strong> Kotlin, Java, Coroutines·Flow, Hilt, OkHttp·Retrofit, Socket.IO, Kotest·MockK·Robolectric, Fastlane · Flutter(Dart, GetX, freezed, MVI)</p>
 <h4>라이더앱 · Android Native | 2022.05 ~ 2025.12</h4>
+<p>과거 일 최대 70만 콜을 처리한 배차 플랫폼의 라이더앱 · v4.6.3~v6.21.4 61개 버전 릴리즈 담당 · Crash-free Users 99.89%·ANR-free Sessions 99.97% 수준으로 운영</p>
 <ul>
-<li><strong>실시간 주문 목록 정합:</strong> 소켓 패킷과 Socket.IO 푸시가 한 화면의 주문 목록을 함께 갱신하면서 생긴 목록 갱신 중 크래시, 새 접수 미반영, 지도배차·접수목록 불일치를 이슈 단위로 추적. 네 목록이 함께 쓰던 어댑터·뷰홀더(약 800줄)를 목록별로 나누고, 화면 재생성 뒤 끊기던 패킷 처리부의 화면 참조를 바로잡음. 배차 대기 시간은 단말 시각 조작과 시각 오차에 흔들리지 않도록 SNTP로 보정한 네트워크 시각으로 판정</li>
-<li><strong>멈출 수 없는 서비스의 구조 전환:</strong> 기존 Java 모듈에서는 Lombok과 Kotlin이 충돌해, 신규 코드를 별도 Kotlin 모듈에 쌓고 레거시 Activity를 Hilt 진입점 삼아 구·신 구조를 공존시킴. 레거시 프로시저 통신은 동료와 기능을 나눠 REST로 옮겼고, 3년 뒤 Lombok 제거와 모듈 통합까지 마침(2025.07, 1,530파일). Java 5.9만 → 3.9만 줄, 프로시저 통신 메서드 98 → 37개</li>
-<li><strong>중복 출금:</strong> 수수료가 이중 차감되는 중복 출금이 운영에서 세 번 재발. 버튼 중복 입력 방어, 동료가 제안한 자동 재시도 해제를 출금 전용 OkHttp 클라이언트로 분리 적용, 동시 요청 1건 제한을 차례로 넣은 뒤 같은 장애는 재발하지 않았고 출금 오류도 로그로 추적</li>
-<li><strong>주문 선점 매크로 대응:</strong> 접근성 클릭 차단 → '앱 위에 그리기' 터치 차단으로 대응했지만 리패키징·후킹으로 클라이언트 검사가 계속 뚫려 판단을 서버로 옮김. 서버 개발자와 나눠 Play Integrity를 붙였고, 로그인 단계 검증에서는 정상 라이더를 오탐으로 막지 않도록 차단 대신 실패 사유를 기록. 이후 서버가 소켓으로 보낸 nonce로 앱이 토큰을 만들어 회신하는 구조로 바꿈(2024.08)</li>
-<li><strong>안정성·배포:</strong> Activity·MapView 누수와 화면 종료 뒤에도 남던 소켓 연결을 정리하고, Crashlytics와 통신 인터셉터로 오류를 추적. Kotest·MockK 도메인 테스트를 Fastlane QC·Staging 배포와 pre-push의 선행 조건으로 운영</li>
+<li><strong>구조:</strong> Clean Architecture(domain·data·presentation) + MVVM, Hilt, Coroutines·Flow 기반 Kotlin 멀티모듈. 기존 Java 모듈에서 Lombok과 Kotlin이 충돌해 신규 코드를 별도 모듈에 쌓고, 레거시 Activity를 Hilt 진입점 삼아 구·신 구조를 공존시킨 뒤 3년 만에 모듈 통합(2025.07). 레거시 프로시저 호출은 동료와 나눠 REST로 이관(호출 메서드 98 → 37개). Gradle을 Kotlin DSL·Version Catalog로 옮기고 모듈 공통 설정을 buildSrc 플러그인으로 묶음</li>
+<li><strong>중복 출금:</strong> 버튼 중복 터치와 약전계 재전송으로 같은 출금 요청이 여러 번 들어가 수수료가 이중 차감되는 장애가 운영에서 세 번 재발. 버튼 중복 입력 방어 → 동료가 제안한 자동 재시도 해제를 출금 전용 OkHttp 클라이언트로 분리 적용 → 같은 timestamp 요청이 다시 여러 건 들어오자 동시 요청 1건 제한. 이후 같은 장애는 재발하지 않음</li>
+<li><strong>실시간 주문 목록:</strong> 소켓 패킷과 Socket.IO 푸시가 한 화면의 주문 목록을 함께 갱신하는 구조에서 QA 보고와 Crashlytics로 들어온 목록 크래시, 새 접수 미반영, 지도배차·접수목록 불일치를 이슈 단위로 추적. 네 목록이 함께 쓰던 어댑터·뷰홀더(약 800줄)를 목록별로 나누고, 화면 재생성 뒤 끊기던 패킷 처리부의 화면 참조를 바로잡음</li>
+<li><strong>주문 선점 매크로:</strong> 접근성 클릭 차단 → '앱 위에 그리기' 터치 차단으로 대응했지만 리패키징·후킹으로 클라이언트 검사가 계속 뚫려 판단을 서버로 옮김. 서버 개발자와 나눠 앱은 Play Integrity 토큰을 받아 서버로 보내고 서버는 검증을 맡았고, 로그인 단계에서는 정상 라이더를 오탐으로 막지 않도록 차단 대신 실패 사유를 기록. 이후 서버가 소켓으로 보낸 nonce로 앱이 토큰을 만들어 회신하는 구조로 바꿈(2024.08)</li>
+<li><strong>지도 화면 메모리 누수:</strong> 지도 화면을 오가면 나던 OOM·지도 SDK 중복 생성 크래시를 Crashlytics에서 확인하고, Profiler 힙 덤프로 종료 뒤에도 남는 Activity를 찾아 Context·MapView 내부 참조를 해제 시점에 정리. QA와 단말별 메모리 회수를 확인했고, SDK 내부 누수로 남던 검은 화면은 SDK v2 교체(2024.04) 뒤 재현되지 않음</li>
+<li><strong>OS·정책 대응:</strong> targetSdk 30 → 35 상향을 네 차례 맡아 PendingIntent·exported·알림 권한·뒤로가기·위치 포그라운드 서비스 타입 변경을 반영하고, 16KB 페이지 크기에 맞춰 네이티브 라이브러리가 든 SDK를 교체</li>
+<li><strong>테스트·배포:</strong> 로그인·인증·출금 한도·추천배차 등 Kotest·MockK 도메인 테스트(약 144케이스)와 Hilt·Robolectric 통합 테스트(약 39케이스)를 작성하고, push 전 pre-push 훅과 Fastlane 배포 자동화(QC·Staging App Distribution, Play 내부 테스트, Slack 알림)에서 도메인 테스트를 먼저 돌림</li>
 </ul>
 <h4>허브관제앱 · Flutter | 2026.03 ~ 현재</h4>
-<p>허브·총판 관리자용 실시간 배달 관제 앱 · 신규 구축 · 2인 팀 · 2026.09 정식 출시</p>
+<p>허브·총판 관리자용 실시간 배달 관제 앱 · 2026.09 정식 출시 · 2인 팀에서 아키텍처·지도/목록관제·소켓 담당(동료는 주문 상세·대리 접수·관리 화면)</p>
 <ul>
-<li><strong>실시간 관제 정합:</strong> 기존 관제앱의 7초 폴링이 만들던 중복 처리·콜 누락을 없애기 위해 기획부터 출시까지 주도해 Socket.IO 기반으로 새로 만듦. 재연결 때 REST로 재동기화하고, 조회 응답이 푸시보다 늦게 와 한 주문이 두 목록에 남던 문제는 '한 주문은 한 그룹' 규칙과 재현 테스트로 막음. 주문 캐시 반영 규칙은 정책 객체로 분리(테스트 19건)</li>
-<li><strong>지도 ANR:</strong> 15분간 주문 푸시 796건 중 고유 이벤트가 99건뿐인 중복 수신과 마커 전체 속성 재기록을 원인으로 확인. 동일 스냅샷 제거, 바뀐 속성만 반영하는 diff 렌더러, 이벤트 coalescing으로 플랫폼 채널 호출을 줄임</li>
-<li><strong>AI 에이전트 개발 기준:</strong> 이 앱의 구조를 AI 코딩 에이전트가 따르는 팀 공통 지침과 구조 검사기(레이어 의존·단일 State 검사)로 만들어 Flutter 라이더앱과 함께 적용하고, UseCase 테스트 407케이스를 pre-push에 연결</li>
+<li><strong>폴링 → 실시간:</strong> 기존 관제앱의 7초 폴링이 만들던 중복 처리·콜 누락을 없애려 기획부터 출시까지 주도해 Socket.IO 기반으로 새로 만들고, 재연결 때는 REST로 재동기화. 조회 응답이 푸시보다 늦게 와 한 주문이 두 목록에 남던 문제는 '한 주문은 한 그룹' 규칙과 재현 테스트로 막음</li>
+<li><strong>지도 ANR:</strong> 15분간 주문 푸시 796건 중 고유 이벤트가 99건뿐인 중복 수신과 마커 전체 속성 재기록이 원인. 동일 스냅샷 제거, 바뀐 속성만 반영하는 diff 렌더러, 이벤트 coalescing으로 플랫폼 채널 호출을 줄임</li>
+<li><strong>AI 결과물 검증:</strong> MVI(freezed 단일 State) 구조를 AI 코딩 에이전트가 따르는 팀 공통 지침·구조 검사기로 만들어 Flutter 라이더앱에도 적용하고, UseCase 테스트 407케이스를 pre-push에 연결</li>
 </ul>
 <h4>라이더앱 · Flutter | 2024.06 ~ 현재</h4>
+<p>2024.10 iOS 출시 막바지 QA에 합류, 2026년부터 메인 개발</p>
 <ul>
-<li>2024.10 iOS 출시 막바지 QA에 합류했고, 2026년부터 메인 개발</li>
-<li><strong>소켓 계층 재작성:</strong> 중복 연결 요청 때문에 서버가 중복 접속으로 판정하고, 재연결 20회 제한 때문에 음영 지역을 지난 뒤 영구 단절되던 소켓 계층을 다시 씀. 연결 주체를 하나로 모으고 횟수 제한 없는 backoff를 넣어 가짜 서버 재현 테스트로 확인한 뒤 v2.17.2(2026.10)로 배포. 최근 앱 목록에서 앱을 지울 때는 Dart 실행이 보장되지 않아, Android Service(onTaskRemoved)·iOS applicationWillTerminate에서 네이티브 코드가 퇴근 요청을 직접 전송</li>
+<li><strong>소켓 계층 재작성:</strong> 중복 연결 요청 때문에 서버가 중복 접속으로 판정하고, 재연결 20회 제한 때문에 음영 지역을 지난 뒤 영구 단절되던 소켓 계층을 허브관제앱에서 먼저 검증한 구조로 다시 씀. 연결 주체를 하나로 모으고 제한 없는 backoff와 서버 인증 방식에 맞춘 토큰 전달을 넣어 가짜 서버 테스트로 확인한 뒤 v2.17.2(2026.10)로 배포</li>
+<li><strong>앱 종료 시 퇴근:</strong> 최근 앱 목록에서 앱을 지울 때는 Dart 실행이 보장되지 않아, Android Service(onTaskRemoved)·iOS applicationWillTerminate에서 네이티브 코드가 퇴근 요청을 직접 전송</li>
 </ul>
 <h3>카이아이컴퍼니 | 2021.03 ~ 2022.05</h3>
-<p>Android 개발 → 입사 약 6개월 뒤 Android·iOS 4인 모바일 파트 리딩</p>
-<p>소아 구강 건강 관리 서비스 덴티아이의 Android 앱을 출시 직전에 맡아 안정화했고, 덴티아이 경기·덴티아이 2022·덴티로카(장병 대상)를 개발.</p>
+<p>Android 개발자 → 모바일 팀장 (입사 약 6개월 후, Android·iOS 4인)</p>
+<p>소아 구강 건강 관리 서비스 덴티아이. 출시 직전에 합류해 지자체·대상별 앱 6개(덴티아이 2021·플러스·경기·2022, 덴티로카 Android·iOS) 개발.</p>
 <ul>
-<li><strong>CS 안정화:</strong> 개발 결함과 운영 문의가 섞여 일 1,000건 넘게 들어오던 CS에서 개발 원인을 정리해 운영 문의만 일 100건 이하로 남김. RxJava 스케줄러·구독 해제를 바로잡고 서버 응답 코드를 도메인 예외로 감싸 공통 에러 처리로 통합</li>
-<li><strong>덴티아이 2022:</strong> 지자체마다 다른 서버를 지역 코드로 라우팅하고, 단일 책임 UseCase·피처별 Hilt 모듈로 메인 개발을 맡아 2022.04 출시</li>
-<li><strong>iOS:</strong> 덴티로카 iOS(Swift) 앱의 초기 구조와 인증·촬영·네트워크 계층을 직접 구현</li>
+<li><strong>안정화:</strong> 개발 결함과 운영 문의가 섞여 일 1,000건 넘게 들어오던 CS에서 개발 원인을 정리해 운영 문의만 일 100건 이하로 남김. 코드에서는 RxJava 스케줄러·구독 오용과 예외를 삼키던 처리를 바로잡고 공통 에러 처리를 만듦</li>
+<li><strong>덴티아이 플러스:</strong> 덴티아이 2021 등 기존 사내 앱의 공통 기반 코드를 가져와 레이어 모듈 구조로 다시 짜고, 동적 문진표·병원 지도·SNS 4종 로그인을 개발해 착수 4주 만에 v1.0.0 출시</li>
+<li><strong>덴티아이 2022:</strong> 동료가 만든 레이어 모듈 골격 위에 단일 책임 UseCase·피처별 Hilt 모듈 구조를 세우고, 지역 코드 라우팅 인터셉터와 서버 양식 기반 동적 문진표를 구현. 메인 개발(커밋 85%)로 2022.04 출시</li>
+<li><strong>덴티로카:</strong> Android CameraX 플라그 촬영을 촬영·크롭·업로드·결과 화면까지 구현하고, iOS(Swift) 앱의 초기 구조·인증·네트워크 계층도 작성</li>
+<li><strong>팀장:</strong> 리뷰·브랜치 규칙, 컨벤션, 온보딩 문서, 릴리즈 기준 정비. 성과급 제도가 없는 회사였지만 팀 성과를 인정받아 팀원 전원이 상여금을 받음</li>
 </ul>
-<p><strong>기술:</strong> Kotlin, RxJava, MVVM, Clean Architecture, Hilt, Swift, RxSwift</p>
+<p><strong>기술:</strong> Kotlin, RxJava, MVVM, Clean Architecture, Hilt, CameraX, Swift, RxSwift</p>
 <h3>파비 | 2019.03 ~ 2020.09</h3>
-<p>팀원 · Android 메인 개발자</p>
-<p>앱 사용 데이터를 수집하는 리워드 앱 파비캐시(유머 커뮤니티 파비펀 포함)와 소셜 데이팅 앱 파비스타일의 Android 앱을 개발·출시·운영.</p>
+<p>팀원 · Android 메인 개발자 · 리워드 앱 파비캐시(유머 커뮤니티 파비펀 포함), 소셜 데이팅 앱 파비스타일</p>
 <ul>
-<li><strong>백그라운드 수집:</strong> Doze 환경에서 알람이 누락되자 AlarmManager 기반 사용 기록 수집을 WorkManager 주기 작업으로 재설계하고, 기록을 파일로 압축해 업로드</li>
+<li><strong>백그라운드 수집:</strong> Doze에서 알람이 울리지 않는 문제는 setAlarmClock으로, 수집 작업 타임아웃은 WorkManager 주기 작업으로 옮겨 대응</li>
 <li><strong>영상 피드·유료 채팅:</strong> 중첩 RecyclerView에서 셀 attach/detach에 맞춰 ExoPlayer를 할당·해제해 중앙 아이템만 재생. 파비스타일은 1인 개발로 FCM data message·Room 기반 채팅 동기화와 서버 검증 후 consume하는 인앱 결제를 구현</li>
 </ul>
-<p><strong>기술:</strong> Kotlin, Java, MVVM, DataBinding, RxJava, Room, WorkManager, ExoPlayer, FCM</p>
 <h3>테이스트샵 | 2018.06 ~ 2018.11</h3>
-<p>팀원 · Android 1인 개발</p>
-<p>웹 프로토타입 단계의 쿠킹박스 구독 서비스를 Android 앱으로 혼자 개발해 Play 스토어에 출시. REST API 56개를 연동하고, 42개 파일이 참조하던 전역 static 사용자 데이터를 인증 상태 저장소 한 곳으로 모음.</p>
+<p>팀원 · Android 1인 개발 · 쿠킹박스 구독 서비스를 Android 앱으로 혼자 개발해 Play 스토어에 출시</p>
 <h3>인카코커뮤니케이션즈 | 2017.10 ~ 2018.02</h3>
-<p>Android / Server 개발 · 채용 면접·팀 편성 담당</p>
-<p>리워드 앱 캐시타운(UsageStatsManager 수집·리워드 광고·Offerwall)과 매칭 앱 '안녕, 혼밥'(Service + TCP Socket 1:1 채팅)을 개발하고, PHP 서버·MySQL DB도 직접 작성하며 Android 실무를 시작.</p>
+<p>초기 경력 · 리워드·매칭 앱 Android 개발과 PHP 서버 작성으로 실무 시작</p>
 <h2>사이드 프로젝트</h2>
 <ul>
 <li><strong>하루모아 (직접 개발 + AI 활용):</strong> 일기·가계부·운동 기록 앱(Flutter + Spring Boot)을 혼자 만들어 Play 스토어에 출시·운영</li>
 <li><strong>톡머리 (AI 활용):</strong> 알림을 메시지 단위로 식별해 중복을 제거하고 대화방별로 요약하는 Android 앱(Kotlin·Compose)</li>
-<li><strong>QA Workbench (AI 활용):</strong> 기기 미러링과 Jira 이슈 발행을 묶은 QA 데스크톱 도구(Tauri·Rust)를 만들어 사내 QA에 배포</li>
 </ul>
 <h2>핵심 역량</h2>
 <ul>
-<li><strong>Android (주력):</strong> Kotlin, Java, Coroutines·Flow, RxJava, Hilt, Jetpack(ViewModel·Room·WorkManager), Multi-Module, MVVM</li>
-<li><strong>실시간·네트워크:</strong> Socket.IO, REST API(Retrofit·OkHttp)</li>
-<li><strong>품질·배포:</strong> Kotest, MockK, Robolectric, Crashlytics, Fastlane, App Distribution, Gradle Kotlin DSL</li>
-<li><strong>Flutter (출시·운영):</strong> Dart, GetX, freezed, MVI, MethodChannel</li>
-<li><strong>그 밖:</strong> Swift/iOS(실무 개발·파트 리딩), Compose(개인 프로젝트), PHP/MySQL(초기 경력)</li>
+<li><strong>Android (주력):</strong> Kotlin, Java, Coroutines·Flow, RxJava, Hilt, Jetpack(ViewModel·Room·WorkManager), CameraX, Multi-Module(Gradle Version Catalog·buildSrc), MVVM, Socket.IO, Retrofit·OkHttp</li>
+<li><strong>품질·배포:</strong> Kotest, MockK, Robolectric, Crashlytics, Fastlane, Android Studio Profiler</li>
+<li><strong>그 밖:</strong> Flutter(Dart, GetX, freezed, MVI · 출시·운영), Swift/iOS(실무 개발·팀 리딩), Compose(개인 프로젝트)</li>
 </ul>
 <h2>학력·자격·병역·활동</h2>
 <ul>
